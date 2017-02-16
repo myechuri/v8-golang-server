@@ -102,7 +102,6 @@ func (m *module) load() {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	worker := v8worker.New(func(msg string) {
-		log.Printf(msg)
 		w.Write([]byte(msg))
 	}, func(msg string) string {
 		m := module{Id: msg, main: false}
@@ -131,7 +130,7 @@ func main() {
 	fmt.Println("Go version:", runtime.Version())
 
 	http.HandleFunc("/", rootHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8014", nil)
 }
 
 func loadMainModule(w *v8worker.Worker, id string) error {
